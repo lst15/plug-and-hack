@@ -117,7 +117,7 @@ pub struct Filters {
     pub http_dom_hash: Option<String>,
     pub http_favicon_hash: Option<String>,
     pub http_headers_hash: Option<String>,
-    pub http_html: Option<String>,
+    pub http_html: Vec<String>,
     pub http_html_hash: Option<String>,
     pub http_robots_hash: Option<String>,
     pub http_securitytxt: Option<String>,
