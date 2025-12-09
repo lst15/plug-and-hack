@@ -7,9 +7,7 @@ async fn main() {
     let shodan = shodan::Shodan::new(String::from(""));
 
     let filters = shodan::Filters {
-        http_component: vec![
-            "'Next.js'".into(),
-        ],
+        http_component: vec!["'Next.js'".into()],
         ..Default::default()
     };
     let rsp = shodan.query(filters).await;
