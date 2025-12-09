@@ -1,4 +1,3 @@
-use std::collections::HashMap;
 use serde::{Deserialize, Serialize};
 
 #[derive(Deserialize, Debug)]
@@ -30,7 +29,6 @@ pub struct ShodanLocation {
     pub dma_code: Option<i32>,
     pub postal: Option<String>,
 }
-
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct ShodanMatch {
@@ -64,21 +62,18 @@ pub struct ShodanMatch {
     pub hash: Option<i64>,
 }
 
-
 #[derive(Debug, Serialize, Deserialize)]
 pub struct ShodanSearchResponse {
     pub total: u64,
     pub matches: Vec<ShodanMatch>,
 }
 
-
 pub struct Shodan {
-    key:String
+    key: String,
 }
 
 //https://www.shodan.io/search/filters
-#[derive(Debug, Serialize, Deserialize)]
-#[derive(Default)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct Filters {
     pub all: Option<String>,
     pub asn: Option<String>,
@@ -306,10 +301,9 @@ impl Filters {
     }
 }
 
-
 impl Shodan {
     pub fn new(key: String) -> Self {
-        Self {key}
+        Self { key }
     }
 
     pub async fn get_account(self) -> AccountProfile {
@@ -334,5 +328,4 @@ impl Shodan {
         let json: ShodanSearchResponse = rsp.json().await.expect("json");
         json
     }
-
 }
