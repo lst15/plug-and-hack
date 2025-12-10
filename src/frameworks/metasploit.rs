@@ -1,4 +1,5 @@
-use serde::{Deserialize, Serialize};
+use rmpv::Value as RmpValue;
+use serde::Deserialize;
 use serde_json::Value;
 use tokio::io::{AsyncReadExt, AsyncWriteExt};
 use tokio::net::TcpStream;
@@ -27,13 +28,6 @@ impl From<rmp_serde::decode::Error> for MetasploitError {
     fn from(err: rmp_serde::decode::Error) -> Self {
         MetasploitError::Decode(err)
     }
-}
-
-#[derive(Serialize)]
-struct RpcRequest<'a> {
-    method: &'a str,
-    params: &'a [Value],
-    id: u32,
 }
 
 #[derive(Deserialize)]
@@ -110,15 +104,23 @@ impl MetasploitClient {
         method: &str,
         params: Vec<Value>,
     ) -> Result<Value, MetasploitError> {
-        let request = RpcRequest {
-            method,
-            params: &params,
-            id: self.request_id,
-        };
-
+        let request_id = self.request_id;
         self.request_id = self.request_id.wrapping_add(1);
 
-        let payload = rmp_serde::to_vec(&request)?;
+        let msgpack_params: Vec<RmpValue> = params
+            .into_iter()
+            .map(|param| {
+                serde_json::from_value(param)
+                    .map_err(|err| MetasploitError::InvalidResponse(err.to_string()))
+            })
+            .collect::<Result<_, _>>()?;
+
+        let payload = rmp_serde::to_vec(&RmpValue::Array(vec![
+            RmpValue::from(0),
+            RmpValue::from(request_id),
+            RmpValue::from(method),
+            RmpValue::Array(msgpack_params),
+        ]))?;
         let length: u32 = payload
             .len()
             .try_into()
@@ -138,7 +140,39 @@ impl MetasploitClient {
         let mut response_buf = vec![0u8; expected_length];
         self.stream.read_exact(&mut response_buf).await?;
 
-        let response: Value = rmp_serde::from_slice(&response_buf)?;
-        Ok(response)
+        let response: RmpValue = rmp_serde::from_slice(&response_buf)?;
+
+        let response_array = response
+            .as_array()
+            .ok_or_else(|| MetasploitError::InvalidResponse("Unexpected response format".into()))?;
+
+        if response_array.len() != 4 {
+            return Err(MetasploitError::InvalidResponse(
+                "Unexpected msgpack-rpc response length".into(),
+            ));
+        }
+
+        let response_type = response_array[0]
+            .as_i64()
+            .ok_or_else(|| MetasploitError::InvalidResponse("Missing response type".into()))?;
+        let response_id = response_array[1]
+            .as_u64()
+            .ok_or_else(|| MetasploitError::InvalidResponse("Missing response id".into()))?;
+
+        if response_type != 1 || response_id != request_id as u64 {
+            return Err(MetasploitError::InvalidResponse("Mismatched response".into()));
+        }
+
+        if !response_array[2].is_nil() {
+            return Err(MetasploitError::InvalidResponse(format!(
+                "RPC error: {}",
+                response_array[2]
+            )));
+        }
+
+        let result_json = serde_json::to_value(&response_array[3])
+            .map_err(|err| MetasploitError::InvalidResponse(err.to_string()))?;
+
+        Ok(result_json)
     }
 }
