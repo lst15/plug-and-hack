@@ -1,12 +1,10 @@
-mod osint;
-
-use crate::osint::shodan;
+use plug_and_hack::osint;
 
 #[tokio::main]
 async fn main() {
-    let shodan = shodan::Shodan::new(String::from(""));
+    let shodan = osint::shodan::Shodan::new(String::from(""));
 
-    let filters = shodan::Filters {
+    let filters = osint::shodan::Filters {
         http_component: vec!["'Next.js'".into()],
         ..Default::default()
     };
