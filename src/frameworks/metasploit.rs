@@ -50,11 +50,17 @@ pub struct MetasploitClient {
 }
 
 impl MetasploitClient {
-    pub async fn new(host: String, port: u16, username: String, password: String) -> Self {
+    pub async fn new(
+        host: String,
+        port: u16,
+        username: String,
+        password: String,
+    ) -> Result<Self, MetasploitError> {
         let address = format!("{host}:{port}");
-        let stream = TcpStream::connect(address)
-            .await
-            .unwrap_or_else(|err| panic!("Failed to connect to msfgrpc service: {err}"));
+        let stream = TcpStream::connect(&address).await.map_err(|err| {
+            let msg = format!("Failed to connect to msfgrpc service at {address}: {err}");
+            MetasploitError::Io(std::io::Error::new(err.kind(), msg))
+        })?;
 
         let mut client = Self {
             stream,
@@ -62,13 +68,10 @@ impl MetasploitClient {
             request_id: 1,
         };
 
-        let token = client
-            .authenticate(username, password)
-            .await
-            .unwrap_or_else(|err| panic!("Authentication failed: {err:?}"));
+        let token = client.authenticate(username, password).await?;
 
         client.token = token;
-        client
+        Ok(client)
     }
 
     async fn authenticate(
