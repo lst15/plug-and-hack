@@ -281,13 +281,12 @@ pub fn applications_by_title() -> Vec<String> {
         r#""title":"Nextcloud Collabora Online""#.to_string(),
         r#""title":"Nextcloud Files""#.to_string(),
         r#""title":"Nextcloud Talk""#.to_string(),
-        r#""title:" "[] Coolify""#.to_string(),
         r#""title": "Apache2 Ubuntu Default Page: It works""#.to_string(),
         r#""product": "MinIO Server""#.to_string(),
         r#""title":"Welcome to nginx!""#.to_string(),
         r#""title":"SUGO Boss Helper""#.to_string(),
-        r#""title:"Nginx Proxy Manager""#.to_string(),
-        r#""title:"SilentShield Captcha""#.to_string(),
+        r#""title":"Nginx Proxy Manager""#.to_string(),
+        r#""title":"SilentShield Captcha""#.to_string(),
     ]
 }
 
