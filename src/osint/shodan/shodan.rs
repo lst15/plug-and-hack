@@ -328,7 +328,7 @@ impl Shodan {
     }
 
     pub async fn get_hosts_from_responses(
-        self,
+        &self,
         responses: Vec<ShodanSearchResponse>
     ) -> Vec<String> {
         let mut out = Vec::new();
@@ -351,6 +351,7 @@ impl Shodan {
 
         out
     }
+
 
 
 
