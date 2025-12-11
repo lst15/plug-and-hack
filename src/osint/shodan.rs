@@ -327,6 +327,33 @@ impl Shodan {
         }).collect()
     }
 
+    pub async fn get_hosts_from_responses(
+        self,
+        responses: Vec<ShodanSearchResponse>
+    ) -> Vec<String> {
+        let mut out = Vec::new();
+
+        for rsp in responses {
+            for x in rsp.matches {
+                let module = match x._shodan
+                    .as_ref()
+                    .and_then(|s| s.module.as_ref())
+                    .map(|m| m.as_str())
+                {
+                    Some("https") => "https",
+                    _ => "http",
+                };
+
+                let host = format!("{}://{}:{}", module, x.ip_str.unwrap(), x.port.unwrap());
+                out.push(host);
+            }
+        }
+
+        out
+    }
+
+
+
     async fn query_iter<I>(&self, iter: I) -> Vec<ShodanSearchResponse>
     where
         I: IntoIterator<Item = String>,
