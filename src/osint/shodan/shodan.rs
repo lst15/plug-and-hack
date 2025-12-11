@@ -62,10 +62,13 @@ pub struct ShodanMatch {
     pub hash: Option<i64>,
 }
 
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct ShodanSearchResponse {
+    #[serde(default)]
     pub total: u64,
+    #[serde(default)]
     pub matches: Vec<ShodanMatch>,
+    pub error: Option<String>,
 }
 
 pub struct Shodan {
@@ -317,25 +320,34 @@ impl Shodan {
     }
 
     pub async fn get_hosts(self, matches: Vec<ShodanMatch>) -> Vec<String> {
-        matches.into_iter().map(|x| {
-            let module = match x._shodan.as_ref().and_then(|s| s.module.as_ref()).map(|m| m.as_str()) {
-                Some("https") => "https",
-                _ => "http",
-            };
+        matches
+            .into_iter()
+            .map(|x| {
+                let module = match x
+                    ._shodan
+                    .as_ref()
+                    .and_then(|s| s.module.as_ref())
+                    .map(|m| m.as_str())
+                {
+                    Some("https") => "https",
+                    _ => "http",
+                };
 
-            format!("{}://{}:{}", module, x.ip_str.unwrap(), x.port.unwrap())
-        }).collect()
+                format!("{}://{}:{}", module, x.ip_str.unwrap(), x.port.unwrap())
+            })
+            .collect()
     }
 
     pub async fn get_hosts_from_responses(
         &self,
-        responses: Vec<ShodanSearchResponse>
+        responses: Vec<ShodanSearchResponse>,
     ) -> Vec<String> {
         let mut out = Vec::new();
 
         for rsp in responses {
             for x in rsp.matches {
-                let module = match x._shodan
+                let module = match x
+                    ._shodan
                     .as_ref()
                     .and_then(|s| s.module.as_ref())
                     .map(|m| m.as_str())
@@ -351,9 +363,6 @@ impl Shodan {
 
         out
     }
-
-
-
 
     async fn query_iter<I>(&self, iter: I) -> Vec<ShodanSearchResponse>
     where
@@ -371,6 +380,11 @@ impl Shodan {
 
             let rsp = reqwest::get(url).await.expect("http");
             let json: ShodanSearchResponse = rsp.json().await.expect("json");
+
+            if let Some(err) = json.error.as_ref() {
+                eprintln!("Shodan query failed for '{q}': {err}");
+                continue;
+            }
 
             out.push(json);
         }
