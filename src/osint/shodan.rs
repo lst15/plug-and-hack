@@ -316,16 +316,53 @@ impl Shodan {
         body
     }
 
-    pub async fn query(&self, filters: Filters) -> ShodanSearchResponse {
+    pub async fn get_hosts(self, matches: Vec<ShodanMatch>) -> Vec<String> {
+        matches.into_iter().map(|x| {
+            let module = match x._shodan.as_ref().and_then(|s| s.module.as_ref()).map(|m| m.as_str()) {
+                Some("https") => "https",
+                _ => "http",
+            };
+
+            format!("{}://{}:{}", module, x.ip_str.unwrap(), x.port.unwrap())
+        }).collect()
+    }
+
+    async fn query_iter<I>(&self, iter: I) -> Vec<ShodanSearchResponse>
+    where
+        I: IntoIterator<Item = String>,
+    {
         let key = &self.key;
+
+        let mut out = Vec::new();
+
+        for q in iter {
+            let url = format!(
+                "https://api.shodan.io/shodan/host/search?key={key}&query={}",
+                urlencoding::encode(&q)
+            );
+
+            let rsp = reqwest::get(url).await.expect("http");
+            let json: ShodanSearchResponse = rsp.json().await.expect("json");
+
+            out.push(json);
+        }
+
+        out
+    }
+
+    pub async fn query_raw_many(&self, queries: Vec<String>) -> Vec<ShodanSearchResponse> {
+        self.query_iter(queries).await
+    }
+
+    pub async fn query_many(&self, filters_list: Vec<Filters>) -> Vec<ShodanSearchResponse> {
+        let queries = filters_list.into_iter().map(|f| f.to_query());
+        self.query_iter(queries).await
+    }
+
+    pub async fn query(&self, filters: Filters) -> ShodanSearchResponse {
         let query = filters.to_query();
-        let url = format!(
-            "https://api.shodan.io/shodan/host/search?key={key}&query={}",
-            urlencoding::encode(&query)
-        );
-        println!("{url}");
-        let rsp = reqwest::get(url).await.expect("http");
-        let json: ShodanSearchResponse = rsp.json().await.expect("json");
-        json
+        let mut out = self.query_iter(std::iter::once(query)).await;
+
+        out.remove(0)
     }
 }
