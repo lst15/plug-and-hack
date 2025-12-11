@@ -265,24 +265,29 @@ pub fn shodan_custom_rsc() -> Vec<String> {
 
 pub fn applications_by_title() -> Vec<String> {
     vec![
-        r#""product":"Portainer""#.to_string(),
-        r#""title":"UI for Apache Kafka""#.to_string(),
-        r#""title":"Grafana""#.to_string(),
-        r#""title":"Nextcloud""#.to_string(),
-        r#""title":"Nextcloud Talk""#.to_string(),
-        r#""title":"Nextcloud Calendar""#.to_string(),
-        r#""title":"Nextcloud Contacts""#.to_string(),
-        r#""title":"Nextcloud Notes""#.to_string(),
-        r#""title":"Nextcloud Tasks""#.to_string(),
-        r#""title":"Nextcloud Collabora Online""#.to_string(),
-        r#""title":"Nextcloud Files""#.to_string(),
-        r#""title":"Nextcloud Talk""#.to_string(),
-        r#""title:" "[coolify] Coolify""#.to_string(),
-        r#""title:""title": "Apache2 Ubuntu Default Page: It works""#.to_string(),
-        r#""title:""product": "MinIO Server""#.to_string(),
-        r#""title": "Welcome to nginx!""#.to_string(),
-        r#""title": "SUGO Boss Helper""#.to_string(),
-        r#""title:" "Nginx Proxy Manager""#.to_string(),
+        r#"product":"Portainer""#.to_string(),
+        r#"product":"Backoffice""#.to_string(),
+        r#"product":"Tower360 Suite""#.to_string(),
+        r#"product":"Wabot.app""#.to_string(),
+        r#"product":"Traefik Proxy""#.to_string(),
+        r#"title":"UI for Apache Kafka""#.to_string(),
+        r#"title":"Grafana""#.to_string(),
+        r#"title":"Nextcloud""#.to_string(),
+        r#"title":"Nextcloud Talk""#.to_string(),
+        r#"title":"Nextcloud Calendar""#.to_string(),
+        r#"title":"Nextcloud Contacts""#.to_string(),
+        r#"title":"Nextcloud Notes""#.to_string(),
+        r#"title":"Nextcloud Tasks""#.to_string(),
+        r#"title":"Nextcloud Collabora Online""#.to_string(),
+        r#"title":"Nextcloud Files""#.to_string(),
+        r#"title":"Nextcloud Talk""#.to_string(),
+        r#"title:" "[coolify] Coolify""#.to_string(),
+        r#"title:""title": "Apache2 Ubuntu Default Page: It works""#.to_string(),
+        r#"title:""product": "MinIO Server""#.to_string(),
+        r#"title":"Welcome to nginx!""#.to_string(),
+        r#"title":"SUGO Boss Helper""#.to_string(),
+        r#"title:""Nginx Proxy Manager""#.to_string(),
+        r#"title:"SilentShield Captcha"#.to_string(),
     ]
 }
 
@@ -290,62 +295,62 @@ pub fn financial_systems_comprehensive() -> Vec<String> {
     vec![
         // ===== TITLE BASED =====
         // Sistemas PIX e Pagamentos BR
-        r#""title":"PIX""#.to_string(),
-        r#""title":"Gerenciador PIX""#.to_string(),
-        r#""title":"Portal PIX""#.to_string(),
-        r#""title":"Sistema PIX""#.to_string(),
-        r#""title":"QR Code PIX""#.to_string(),
+        r#"title":"PIX""#.to_string(),
+        r#"title":"Gerenciador PIX""#.to_string(),
+        r#"title":"Portal PIX""#.to_string(),
+        r#"title":"Sistema PIX""#.to_string(),
+        r#"title":"QR Code PIX""#.to_string(),
 
         // Bancos Digitais BR
-        r#""title":"Nubank""#.to_string(),
-        r#""title":"Inter""#.to_string(),
-        r#""title":"C6 Bank""#.to_string(),
-        r#""title":"Neon""#.to_string(),
-        r#""title":"PagBank""#.to_string(),
-        r#""title":"Mercado Pago""#.to_string(),
-        r#""title":"PicPay""#.to_string(),
+        r#"title":"Nubank""#.to_string(),
+        r#"title":"Inter""#.to_string(),
+        r#"title":"C6 Bank""#.to_string(),
+        r#"title":"Neon""#.to_string(),
+        r#"title":"PagBank""#.to_string(),
+        r#"title":"Mercado Pago""#.to_string(),
+        r#"title":"PicPay""#.to_string(),
 
         // Sistemas Bancários
-        r#""title":"Internet Banking""#.to_string(),
-        r#""title":"Banking System""#.to_string(),
-        r#""title":"Core Banking""#.to_string(),
-        r#""title":"Mobile Banking""#.to_string(),
-        r#""title":"Open Banking""#.to_string(),
-        r#""title":"Digital Bank""#.to_string(),
-        r#""title":"Online Banking""#.to_string(),
+        r#"title":"Internet Banking""#.to_string(),
+        r#"title":"Banking System""#.to_string(),
+        r#"title":"Core Banking""#.to_string(),
+        r#"title":"Mobile Banking""#.to_string(),
+        r#"title":"Open Banking""#.to_string(),
+        r#"title":"Digital Bank""#.to_string(),
+        r#"title":"Online Banking""#.to_string(),
 
         // Gateways de Pagamento
-        r#""title":"Payment Gateway""#.to_string(),
-        r#""title":"Gateway de Pagamento""#.to_string(),
-        r#""title":"Checkout""#.to_string(),
-        r#""title":"Payment Portal""#.to_string(),
+        r#"title":"Payment Gateway""#.to_string(),
+        r#"title":"Gateway de Pagamento""#.to_string(),
+        r#"title":"Checkout""#.to_string(),
+        r#"title":"Payment Portal""#.to_string(),
 
         // Bets e Cassinos
-        r#""title":"Bet""#.to_string(),
-        r#""title":"Betting""#.to_string(),
-        r#""title":"Sports Betting""#.to_string(),
-        r#""title":"Casa de Apostas""#.to_string(),
-        r#""title":"Sportsbook""#.to_string(),
-        r#""title":"Casino""#.to_string(),
-        r#""title":"Cassino""#.to_string(),
-        r#""title":"Online Casino""#.to_string(),
-        r#""title":"iGaming""#.to_string(),
+        r#"title":"Bet""#.to_string(),
+        r#"title":"Betting""#.to_string(),
+        r#"title":"Sports Betting""#.to_string(),
+        r#"title":"Casa de Apostas""#.to_string(),
+        r#"title":"Sportsbook""#.to_string(),
+        r#"title":"Casino""#.to_string(),
+        r#"title":"Cassino""#.to_string(),
+        r#"title":"Online Casino""#.to_string(),
+        r#"title":"iGaming""#.to_string(),
 
         // Exchanges
-        r#""title":"Crypto Exchange""#.to_string(),
-        r#""title":"Bitcoin Exchange""#.to_string(),
-        r#""title":"Trading Platform""#.to_string(),
-        r#""title":"Mercado Bitcoin""#.to_string(),
+        r#"title":"Crypto Exchange""#.to_string(),
+        r#"title":"Bitcoin Exchange""#.to_string(),
+        r#"title":"Trading Platform""#.to_string(),
+        r#"title":"Mercado Bitcoin""#.to_string(),
 
         // ===== PRODUCT BASED =====
-        r#""product":"Stripe""#.to_string(),
-        r#""product":"PayPal""#.to_string(),
-        r#""product":"PagSeguro""#.to_string(),
-        r#""product":"Mercado Pago""#.to_string(),
-        r#""product":"Cielo""#.to_string(),
-        r#""product":"Stone""#.to_string(),
-        r#""product":"Binance""#.to_string(),
-        r#""product":"Coinbase""#.to_string(),
+        r#"product":"Stripe""#.to_string(),
+        r#"product":"PayPal""#.to_string(),
+        r#"product":"PagSeguro""#.to_string(),
+        r#"product":"Mercado Pago""#.to_string(),
+        r#"product":"Cielo""#.to_string(),
+        r#"product":"Stone""#.to_string(),
+        r#"product":"Binance""#.to_string(),
+        r#"product":"Coinbase""#.to_string(),
 
         // ===== HTTP.HTML CONTENT SEARCHES =====
         // Termos em HTML de sistemas financeiros
@@ -385,10 +390,10 @@ pub fn financial_systems_comprehensive() -> Vec<String> {
         r#"http.html:"exchange rate""#.to_string(),
 
         // Admin/Dashboard no HTML
-        r#"http.html:"admin" "financial""#.to_string(),
-        r#"http.html:"dashboard" "payment""#.to_string(),
-        r#"http.html:"backoffice" "bank""#.to_string(),
-        r#"http.html:"gerenciador" "pagamento""#.to_string(),
+        r#"http.html:"admin" http.html:"financial""#.to_string(),
+        r#"http.html:"dashboard" http.html:"payment""#.to_string(),
+        r#"http.html:"backoffice" http.html"bank""#.to_string(),
+        r#"http.html:"gerenciador" http.html"pagamento""#.to_string(),
 
         // ===== HTTP.COMPONENT BASED =====
         r#"http.component:"Stripe""#.to_string(),
@@ -430,9 +435,9 @@ pub fn financial_systems_comprehensive() -> Vec<String> {
 
         // ===== COMBINED FILTERS =====
         // HTML + Title combos
-        r#"http.html:"transaction" "title":"Banking""#.to_string(),
-        r#"http.html:"payment" "title":"Gateway""#.to_string(),
-        r#"http.html:"wallet" "title":"Crypto""#.to_string(),
+        r#"http.html:"transaction" http.html"title":"Banking""#.to_string(),
+        r#"http.html:"payment" http.html"title":"Gateway""#.to_string(),
+        r#"http.html:"wallet" http.html"title":"Crypto""#.to_string(),
 
         // ===== SSL/CERT BASED =====
         r#"ssl:"banco""#.to_string(),
@@ -444,20 +449,20 @@ pub fn financial_systems_comprehensive() -> Vec<String> {
 
         // ===== SPECIFIC VULNERABILITIES TO LOOK FOR =====
         // APIs expostas
-        r#"http.html:"swagger" "payment""#.to_string(),
-        r#"http.html:"api-docs" "financial""#.to_string(),
-        r#"http.html:"graphql" "banking""#.to_string(),
+        r#"http.html:"swagger" http.html"payment""#.to_string(),
+        r#"http.html:"api-docs" http.html"financial""#.to_string(),
+        r#"http.html:"graphql" http.html"banking""#.to_string(),
 
         // Admin panels expostos
-        r#"http.html:"admin login" "financial""#.to_string(),
-        r#"http.html:"administrator" "payment""#.to_string(),
+        r#"http.html:"admin login" http.html"financial""#.to_string(),
+        r#"http.html:"administrator" http.html"payment""#.to_string(),
         r#"http.title:"Admin" http.html:"bank""#.to_string(),
 
         // Debug/Dev environments
-        r#"http.html:"debug" "payment""#.to_string(),
-        r#"http.html:"development" "banking""#.to_string(),
-        r#"http.html:"staging" "financial""#.to_string(),
-        r#"http.html:"test" "banco""#.to_string(),
+        r#"http.html:"debug" http.html"payment""#.to_string(),
+        r#"http.html:"development" http.html"banking""#.to_string(),
+        r#"http.html:"staging" http.html"financial""#.to_string(),
+        r#"http.html:"test" http.html"banco""#.to_string(),
     ]
 }
 
@@ -465,20 +470,20 @@ pub fn financial_systems_comprehensive() -> Vec<String> {
 pub fn financial_technologies() -> Vec<String> {
     vec![
         // Message Brokers (comum em sistemas financeiros)
-        r#""product":"Apache Kafka""#.to_string(),
-        r#""product":"RabbitMQ""#.to_string(),
-        r#""product":"Redis""#.to_string(),
+        r#"product":"Apache Kafka""#.to_string(),
+        r#"product":"RabbitMQ""#.to_string(),
+        r#"product":"Redis""#.to_string(),
         r#"http.component:"Kafka""#.to_string(),
 
         // Databases
-        r#""product":"PostgreSQL""#.to_string(),
-        r#""product":"MongoDB""#.to_string(),
-        r#""product":"MySQL""#.to_string(),
-        r#"http.html:"mongodb" "payment""#.to_string(),
+        r#"product":"PostgreSQL""#.to_string(),
+        r#"product":"MongoDB""#.to_string(),
+        r#"product":"MySQL""#.to_string(),
+        r#"http.html:"mongodb" http.html"payment""#.to_string(),
 
         // API Gateways
-        r#""product":"Kong""#.to_string(),
-        r#""product":"Nginx""#.to_string(),
+        r#"product":"Kong""#.to_string(),
+        r#"product":"Nginx""#.to_string(),
         r#"http.component:"API Gateway""#.to_string(),
 
         // Frameworks
@@ -492,15 +497,15 @@ pub fn financial_technologies() -> Vec<String> {
 // Produtos específicos de software bancário
 pub fn banking_products() -> Vec<String> {
     vec![
-        r#""product":"SAP Banking""#.to_string(),
-        r#""product":"Temenos""#.to_string(),
-        r#""product":"Oracle FLEXCUBE""#.to_string(),
-        r#""product":"Mambu""#.to_string(),
-        r#""product":"Fiserv""#.to_string(),
-        r#""product":"FIS""#.to_string(),
-        r#""product":"Backbase""#.to_string(),
-        r#""product":"Thought Machine""#.to_string(),
-        r#""product":"nCino""#.to_string(),
+        r#"product":"SAP Banking""#.to_string(),
+        r#"product":"Temenos""#.to_string(),
+        r#"product":"Oracle FLEXCUBE""#.to_string(),
+        r#"product":"Mambu""#.to_string(),
+        r#"product":"Fiserv""#.to_string(),
+        r#"product":"FIS""#.to_string(),
+        r#"product":"Backbase""#.to_string(),
+        r#"product":"Thought Machine""#.to_string(),
+        r#"product":"nCino""#.to_string(),
         r#"http.html:"Temenos""#.to_string(),
         r#"http.html:"FLEXCUBE""#.to_string(),
     ]
@@ -513,7 +518,7 @@ pub fn financial_ports() -> Vec<String> {
         r#"port:8443 "payment""#.to_string(),
         r#"port:8080 http.html:"financial""#.to_string(),
         r#"port:3000 http.html:"bank""#.to_string(),
-        r#"port:9092 "kafka" "payment""#.to_string(), // Kafka
-        r#"port:5672 "rabbitmq" "financial""#.to_string(), // RabbitMQ
+        r#"port:9092 "kafka" http.html"payment""#.to_string(), // Kafka
+        r#"port:5672 "rabbitmq" http.html"financial""#.to_string(), // RabbitMQ
     ]
 }
