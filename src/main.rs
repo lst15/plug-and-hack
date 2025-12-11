@@ -16,6 +16,13 @@ async fn main() {
     //     ..Default::default()
     // };
 
+    let rsp_shodan_applications = shodan.query_raw_many(shodan_queries::applications_by_title()).await;
+
+    let rsp_financial_technologies = shodan.query_raw_many(shodan_queries::financial_technologies()).await;
+    let rsp_financial_systems_comprehensive = shodan.query_raw_many(shodan_queries::financial_systems_comprehensive()).await;
+    let rsp_banking_products = shodan.query_raw_many(shodan_queries::banking_products()).await;
+    let rsp_financial_ports = shodan.query_raw_many(shodan_queries::financial_ports()).await;
+
     let rsp_shodan_rsdw_webpack = shodan.query_raw_many(shodan_queries::shodan_rsdw_webpack()).await;
     let rsp_shodan_rsd_parcel = shodan.query_raw_many(shodan_queries::shodan_rsd_parcel()).await;
     let rsp_shodan_rsd_turbopack = shodan.query_raw_many(shodan_queries::shodan_rsd_turbopack()).await;
@@ -42,6 +49,13 @@ async fn main() {
     let rsp_shodan_plasmic_rsc = shodan.query_raw_many(shodan_queries::shodan_plasmic_rsc()).await;
     let rsp_shodan_kendoreact_rsc = shodan.query_raw_many(shodan_queries::shodan_kendoreact_rsc()).await;
     let rsp_shodan_custom_rsc = shodan.query_raw_many(shodan_queries::shodan_custom_rsc()).await;
+
+    let hosts_applications_by_title = shodan.get_hosts_from_responses(rsp_shodan_applications).await;
+
+    let hosts_financial_technologies = shodan.get_hosts_from_responses(rsp_financial_technologies).await;
+    let hosts_rsp_financial_systems_comprehensive = shodan.get_hosts_from_responses(rsp_financial_systems_comprehensive).await;
+    let hosts_rsp_banking_products = shodan.get_hosts_from_responses(rsp_banking_products).await;
+    let hosts_rsp_financial_ports = shodan.get_hosts_from_responses(rsp_financial_ports).await;
 
     let rsdw_webpack_hosts_many = shodan.get_hosts_from_responses(rsp_shodan_rsdw_webpack).await;
     let rsd_parcel_hosts_many = shodan.get_hosts_from_responses(rsp_shodan_rsd_parcel).await;
@@ -73,10 +87,15 @@ async fn main() {
     let mut all_hosts: Vec<String> = Vec::new();
 
     all_hosts.extend(rsdw_webpack_hosts_many);
+    all_hosts.extend(hosts_financial_technologies);
+    all_hosts.extend(hosts_rsp_financial_ports);
+    all_hosts.extend(hosts_applications_by_title);
     all_hosts.extend(rsd_parcel_hosts_many);
     all_hosts.extend(rsd_turbopack_hosts_many);
     all_hosts.extend(nextjs_hosts_many);
     all_hosts.extend(react_router_rsc_hosts_many);
+    all_hosts.extend(hosts_rsp_financial_systems_comprehensive);
+    all_hosts.extend(hosts_rsp_banking_products);
     all_hosts.extend(waku_hosts_many);
     all_hosts.extend(redwoodjs_hosts_many);
     all_hosts.extend(vite_rsc_hosts_many);
