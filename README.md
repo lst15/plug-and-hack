@@ -13,12 +13,6 @@ Primeiro, instale o Rust e o Cargo utilizando o instalador oficial:
 
 No arquivo src/main.rs, ajuste os parâmetros necessários para o comportamento desejado do payload — como endereço IP e porta do servidor de testes ao qual ele vai se conectar.
 
-// Exemplo (placeholder)
-// Ajuste para o ambiente AUTORIZADO de teste
-const CALLBACK_IP: &str = "127.0.0.1";
-const CALLBACK_PORT: u16 = 4444;
-
-
 Se quiser tornar o payload interativo, você pode implementar a funcionalidade e abrir um Pull Request para revisão.
 
 3. Definir a API Key do Shodan
