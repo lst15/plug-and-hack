@@ -1,5 +1,5 @@
-##plug-and-hack puzzle 
-Hackeie como um quebra cabeça sem esforço ou curva de aprendizado.
+## plug-and-hack puzzle 
+Hack como um quebra cabeça sem esforço ou curva de aprendizado.
 
 A seguir está um passo a passo para configurar e iniciar o ambiente de testes deste projeto em Rust. O objetivo é permitir que você utilize o código em contextos legítimos, como laboratórios de segurança, CTFs ou ambientes autorizados de pentest.
 
