@@ -377,9 +377,12 @@ impl Shodan {
                 "https://api.shodan.io/shodan/host/search?key={key}&query={}",
                 urlencoding::encode(&q)
             );
-
             let rsp = reqwest::get(url).await.expect("http");
-            let json: ShodanSearchResponse = rsp.json().await.expect("json");
+
+            let json = match rsp.json::<ShodanSearchResponse>().await {
+                Ok(v) => v,
+                Err(_) => continue,
+            };
 
             if let Some(err) = json.error.as_ref() {
                 eprintln!("Shodan query failed for '{q}': {err}");
@@ -387,6 +390,7 @@ impl Shodan {
             }
 
             out.push(json);
+
         }
 
         out
