@@ -1,0 +1,11 @@
+shodan:
+  api_key: "CAFEINACAFE"
+fofa:
+  email: "voce@email.com"
+  api_key: "SEU_FOFA_KEY"
+metasploit:
+  msfgrpc_host: "127.0.0.1"
+  msfgrpc_port: 55553
+  username: "msf"
+  password: "msf"
+log_level: "debug"
